@@ -3,16 +3,17 @@
     <h3>Product List</h3>
     <ul v-if="products.length">
       <li v-for="(product, index) in products" :key="index" class="product-item">
-        <span v-if="editIndex !== index">
-          {{ product.name }} - {{ product.price }} - {{ product.description }}
+        <div v-if="editIndex !== index">
+          <span>{{ product.name }} - {{ product.price }} - {{ product.description }}</span>
           <button @click="editProduct(index)">Edit</button>
-        </span>
-        <span v-else>
+        </div>
+        <div v-else>
           <input v-model="editProductData.name" placeholder="Product Name" />
           <input v-model="editProductData.price" type="number" placeholder="Price" />
           <textarea v-model="editProductData.description" placeholder="Description"></textarea>
           <button @click="saveEdit(index)">Save</button>
-        </span>
+          <button @click="cancelEdit">Cancel</button>
+        </div>
       </li>
     </ul>
     <p v-else>No products added yet.</p>
@@ -22,7 +23,10 @@
 <script>
 export default {
   props: {
-    products: Array
+    products: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
@@ -37,6 +41,9 @@ export default {
     },
     saveEdit(index) {
       this.$emit('edit-product', { index, updatedProduct: this.editProductData });
+      this.editIndex = -1;
+    },
+    cancelEdit() {
       this.editIndex = -1;
     }
   }
@@ -64,6 +71,7 @@ button {
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 button:hover {

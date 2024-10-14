@@ -18,5 +18,4 @@ export default {
 </script>
 
 <style scoped>
-/* Add some styling for the home page */
 </style>
