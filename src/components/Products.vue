@@ -20,14 +20,15 @@ export default {
       products: []
     };
   },
-  methods: {
-    addProduct(product) {
-      this.products.push(product);
-    },
-    editProduct({ index, updatedProduct }) {
-      this.$set(this.products, index, updatedProduct);
+   methods: {
+  addProduct(product) {
+    this.products.push(product);
+  },
+  editProduct({ index, updatedProduct }) {
+    this.products[index] = updatedProduct;
     }
   }
+
 };
 </script>
 
